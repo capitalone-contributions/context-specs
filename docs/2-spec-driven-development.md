@@ -42,7 +42,7 @@ it generates a complete, progressively-disclosed knowledge module:
 
 ```
 expert-{name}/
-├── SKILL.md          # high-level pointer (Expert Mode + Signal Mode)
+├── SKILL.md          # high-level pointer, read first
 ├── references/       # dense knowledge, read only when relevant
 │   ├── {topic}.md
 │   └── signal-workflow.md
@@ -62,10 +62,12 @@ Two properties make Experts more than a docs folder:
   feature, each curating its slice of the context. Add or remove Experts without
   touching any existing skill; organizations layer in private Experts for
   internal libraries the same way.
-- **Two modes — and Signal is half of what an Expert *is*.** Expert Mode curates
-  context *before* you write code. Signal Mode validates behavior *during*
-  implementation. The same module that knows your patterns also knows how to tell
-  whether the code honoring them actually works.
+- **It curates before, and sharpens after.** An Expert curates context *before*
+  you write code; then the **Reflect** step at the end of each slice feeds new
+  lessons — a fresh pattern, a spec that fought the codebase — back into it, so the
+  Expert gets a little better every time the project builds. (An Expert can also
+  ship an optional runtime signal script, but a slice's unit tests are the default
+  proof it works.)
 
 ## Specs — planning lifted out of the window
 
@@ -136,18 +138,17 @@ A single reviewer has blind spots; independent reviewers have *different* blind
 spots, and consensus scoring turns that into a confidence signal instead of a
 coin flip.
 
-## Implementation — a feedback loop, not a single pass
+## Implementation — write, verify, reflect
 
-![Signal](../signal.png)
-
-[`/implement-slice`](../skills/sdd/implement-slice/SKILL.md) implements
-one slice as a tight loop: implement the code, then run the slice's **Signal** to
-check it behaves, iterating until the signal validates. Signal is the runtime
-counterpart to the Expert's up-front curation — where the Expert shapes context
-*before*, Signal feeds focused feedback *during*. Unit tests are the default
-signal, but an Expert can define richer ones: hit an endpoint and check the
-response, run browser automation and screenshot it, deploy to a lower
-environment and read the logs.
+[`/implement-slice`](../skills/sdd/implement-slice/SKILL.md) implements one slice
+in three beats: write the code, verify it with unit tests, then **Reflect**. The
+first two are the obvious ones. Reflect is the one that compounds: once the code
+is green, the agent loads the Expert, compares what it just learned against what
+the project already knows, and — only when there's a real lesson — writes it back
+as a new or corrected reference. Where the Expert shapes context *before*
+implementation, Reflect updates it *after*, so the curation and the learning are
+two halves of the same module. The bar is deliberately high: most slices reflect
+nothing.
 
 [`/implement-mainspec`](../skills/sdd/implement-mainspec/SKILL.md)
 orchestrates the whole feature and auto-detects how to run it:

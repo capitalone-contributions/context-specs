@@ -76,7 +76,7 @@ leaves the next invocation a clean re-derivation from disk.
 Four layers gate "done." All four must pass; none can be talked past.
 
 1. **Pre-commit hooks** — linters, formatters, type checks ([PROJECT CONFIG]).
-2. **Slice signals** — each slice's `Signal` section runs during `/implement-slice`.
+2. **Slice unit tests** — each slice's tests run during `/implement-slice`.
 3. **CI** — full test suite, full type check, full lint (incl. custom invariant lints in `scripts/lints/`).
 4. **PRD runner** — `./prds/<feature>/run-prd-test.sh` must exit 0 before merge.
    This is the definition of done.

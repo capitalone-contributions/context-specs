@@ -56,19 +56,20 @@ define the knowledge once, and it flows automatically through every phase:
    Impactful findings are applied in place.
 3. **Implementation** ([`/implement-mainspec`](./skills/sdd/implement-mainspec/SKILL.md)) —
    slices implemented in dependency order, sequential or auto-parallelized across
-   git worktrees, each gated by **Signal** (the runtime feedback loop, below).
+   git worktrees. Each slice is verified by its unit tests, then a **Reflect** step
+   (below) feeds what the implementer learned back into the expert.
 
 **Composable, not hardcoded.** Multiple experts activate for one feature — a
 React expert and a DynamoDB expert both contribute on a full-stack change. Add or
 remove experts without touching any existing skill; organizations layer in
 private experts for internal libraries the same way.
 
-![Signal](./signal.png)
-
-**Signal is half of what an expert is.** Where the expert curates context
-*before* implementation, Signal validates behavior *during* it: run the tests,
-hit the endpoint, check the build, iterate until it passes. Unit tests are the
-default; experts can define richer ones.
+**Reflection is the other half of what an expert is.** Where the expert curates
+context *before* implementation, Reflection updates it *after*: once a slice's code
+and unit tests are green, the implementer judges whether what it learned — a new
+pattern, or a spec that contradicted the codebase — should change the project's
+long-term memory, and writes it back to the expert. The bar is high; most slices
+change nothing.
 
 → [Chapter 2 — Spec-Driven Development](./docs/2-spec-driven-development.md)
 
@@ -102,7 +103,7 @@ state**. The complete state of every feature is observable from the files on dis
 and the branches in git. A small, deterministic dispatcher — **no LLM in the loop**
 — reads that state each tick and shells out to a fresh `claude -p` process per
 step, so no step inherits another's polluted window and crash recovery is free.
-Four layers of verification (pre-commit, slice signals, `local-checks`, and a
+Four layers of verification (pre-commit, slice unit tests, `local-checks`, and a
 runnable `run-prd-test.sh` definition of done) can't be talked past — and when a
 step genuinely can't make progress, the harness stops and hands you a
 **diagnosis-first** report rather than faking success.
@@ -266,7 +267,7 @@ Run from your target project directory. Copies agent definitions (e.g.
 | **1 · SDD** | `/expert-sdd-creator` | Create a domain expert from your docs |
 | | `/spec-planning` | Idea → mainspec + temporal slices |
 | | `/spec-validate` | Multi-agent consensus + expert review |
-| | `/implement-slice`, `/implement-mainspec` | Implement with Signal feedback, sequential or parallel |
+| | `/implement-slice`, `/implement-mainspec` | Implement slices with unit tests + Reflect, sequential or parallel |
 | **2 · Harness** | `/harness-init` | Guided setup of the local harness |
 | | `/fix-local-checks` | Honest fixes for a failing pre-PR gate |
 | | `/address-feedback` | Triage and answer reviewer findings |

@@ -108,7 +108,7 @@ Autonomy is only safe if "done" can't be faked. So the harness leans on checks
 that run **regardless of what the agent decides**, fastest to slowest:
 
 1. **Pre-commit hooks** — linters, formatters, type checks on changed files.
-2. **Slice signals** — each slice's Signal section, run during implementation.
+2. **Slice unit tests** — each slice's tests, run during implementation.
 3. **`local-checks.sh`** — the cheapest gate before a PR: lint, typecheck, the
    fast unit suite, skip-detection, and any custom project lints. It proves
    **correctness, not coverage** — it blocks on real defects and merely warns on
