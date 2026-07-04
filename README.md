@@ -55,9 +55,9 @@ define the knowledge once, and it flows automatically through every phase:
    (3/3 = very high, 2/3 = high) turning agreement into a confidence signal.
    Impactful findings are applied in place.
 3. **Implementation** ([`/implement-mainspec`](./skills/sdd/implement-mainspec/SKILL.md)) —
-   slices implemented in dependency order, sequential or auto-parallelized across
-   git worktrees. Each slice is verified by its unit tests, then a **Reflect** step
-   (below) feeds what the implementer learned back into the expert.
+   slices implemented in dependency order, one at a time on the feature branch.
+   Each slice is verified by its unit tests, then a **Reflect** step (below) feeds
+   what the implementer learned back into the expert.
 
 **Composable, not hardcoded.** Multiple experts activate for one feature — a
 React expert and a DynamoDB expert both contribute on a full-stack change. Add or
@@ -267,7 +267,7 @@ Run from your target project directory. Copies agent definitions (e.g.
 | **1 · SDD** | `/expert-sdd-creator` | Create a domain expert from your docs |
 | | `/spec-planning` | Idea → mainspec + temporal slices |
 | | `/spec-validate` | Multi-agent consensus + expert review |
-| | `/implement-slice`, `/implement-mainspec` | Implement slices with unit tests + Reflect, sequential or parallel |
+| | `/implement-slice`, `/implement-mainspec` | Implement slices sequentially with unit tests + Reflect |
 | **2 · Harness** | `/harness-init` | Guided setup of the local harness |
 | | `/fix-local-checks` | Honest fixes for a failing pre-PR gate |
 | | `/address-feedback` | Triage and answer reviewer findings |

@@ -109,10 +109,9 @@ for future ones.
 That ordering does two jobs at once. For the implementer, it's progressive
 disclosure made structural: the agent is fed **only the current slice**, never
 the whole feature, so its window stays small and focused. For the orchestrator,
-the dependencies form a DAG — and a DAG can be parallelized. Every mainspec
-carries a **Slice Dependency Map** (a table plus a Mermaid graph), and
-[`compute_tiers.py`](../skills/sdd/implement-mainspec/scripts/compute_tiers.py)
-topologically sorts it to find which slices can run concurrently.
+the dependencies define the execution order. Every mainspec carries a **Slice
+Dependency Map** (a table plus a Mermaid graph), which the orchestrator reads to
+implement slices in dependency order, one at a time.
 
 ## Validation — consensus before code
 
@@ -151,17 +150,13 @@ two halves of the same module. The bar is deliberately high: most slices reflect
 nothing.
 
 [`/implement-mainspec`](../skills/sdd/implement-mainspec/SKILL.md)
-orchestrates the whole feature and auto-detects how to run it:
+orchestrates the whole feature: it reads the Slice Dependency Map and delegates
+each slice, in dependency order, to a focused `slice-implementer` subagent —
+committing each to the feature branch as it lands. One slice at a time keeps the
+orchestrator's window lean and every commit reviewable.
 
-- **Sequential** (≤3 slices) — one slice at a time, committed directly to the
-  branch. Simple and linear.
-- **Parallel** (>3 slices) — the DAG from `compute_tiers.py` drives tiered
-  execution: Tier 0 (foundation) first, then later tiers fan out across git
-  worktrees with a focused `slice-implementer` subagent per slice (up to 7
-  concurrent), gating each tier before the next.
-
-Either way, the feedback loop runs **per slice**, not just at the end — the agent
-knows whether it's on track as it goes, not after.
+The feedback loop runs **per slice**, not just at the end — the agent knows
+whether it's on track as it goes, not after.
 
 ## What you have at the end of Layer 1
 

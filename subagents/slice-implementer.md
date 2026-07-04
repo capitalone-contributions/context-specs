@@ -1,6 +1,6 @@
 ---
 name: slice-implementer
-description: Implements a single slice in a worktree. Used by implement-mainspec for parallel tier execution.
+description: Implements a single slice. Used by implement-mainspec to implement one slice on the feature branch.
 skills:
   - implement-slice
 permissionMode: bypassPermissions
