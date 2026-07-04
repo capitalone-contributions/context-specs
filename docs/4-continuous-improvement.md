@@ -15,9 +15,9 @@ own long-term memory.** The next feature starts knowing what the last one taught
 ```mermaid
 flowchart LR
   Merge([Merge to main]) --> Learn["/learn\nreads the merged diff"]
-  Learn --> Vote{Consensus:\nanything worth\nremembering?}
-  Vote -->|no — common| Noop[No-op. Most merges\nteach nothing durable.]
-  Vote -->|yes| Route[Route each fact to\nexactly one destination]
+  Learn --> Reconcile{Reconcile against\ncurrent memory:\nanything to add,\nedit, or delete?}
+  Reconcile -->|no — common| Noop[Nothing to learn.\nMost merges teach\nnothing durable.]
+  Reconcile -->|yes| Route[Route each change to\nexactly one destination]
   Route --> PR["learn/<sha> PR\nyou review and merge"]
 ```
 
@@ -74,14 +74,15 @@ keeping routes to **exactly one** place:
 |---|---|---|
 | **A lint** (`scripts/lints/*`) | The rule is mechanically checkable — pass/fail needs no judgment | Enforced on every PR forever; the error message doubles as a fix prompt |
 | **Eager prose** (`AGENTS.md`) | It must be known *before* an agent would think to consult the Expert, and clears a strict five-part bar | Paid every session — the high bar |
-| **Lazy prose** (an Expert shard) | It's useful when *deliberately reasoning* about an area | Paid only when consulted — the usual home |
+| **Lazy prose** (an Expert reference file) | It's useful when *deliberately reasoning* about an area | Paid only when consulted — the usual home |
 | **Nowhere** | It's inferable from the code, taste-only, or transient | — |
 
-Most facts go to the last two. A 0/3 consensus — "this merge teaches nothing
-durable" — is a **common and correct** outcome, not a failure: vuln fixes,
-refactors that don't change shape, and routine bug fixes usually change no memory
-at all. The system improves by accumulating signal, not noise, and *preferring
-nothing over noise* is what keeps the Expert worth reading.
+Most facts go to the last two. A **nothing-to-learn** outcome — "this merge
+teaches nothing durable" — is a **common and correct** result, not a failure:
+vuln fixes, refactors that don't change shape, and routine bug fixes usually
+change no memory at all, so `/learn` prints `nothing to learn` and opens no PR.
+The system improves by accumulating signal, not noise, and *preferring nothing
+over noise* is what keeps the Expert worth reading.
 
 ## Lints — the memory an agent cannot ship past
 
@@ -105,15 +106,22 @@ lint only on recurrence, and a drafted lint **must pass against the just-merged
 code** before it's wired in (the inverse of `/intent`'s right-reason check — a
 lint that reddens the merge it was born from is wrong).
 
-## Consensus gates the write
+## Reconcile, don't accumulate
 
-Before anything changes, `/learn` spawns a few cheap reviewers that read the
-merged diff against current memory and vote, per surface, on whether anything
-*must* change. Only changes that clear the threshold survive. It's the same
-consensus pattern `/spec-validate` uses in Chapter 2, pointed at a different
-question — and it's cheap insurance against corrupting long-term memory on every
-commit. Everything that does survive lands on a reviewable, revertible PR. You
-stay the final gate.
+Memory is a *current model of `main`*, not an append-only log — so `/learn` doesn't
+just add. On every merge it runs a three-pass reconcile against the merged diff,
+inline in the main agent (no subagent voting): it **deletes** reference files whose
+anchor code is gone, resolves **contradictions** between files that now disagree,
+and **edits** claims the diff has invalidated. Adds, edits, and deletes all ride
+on the same `learn/<sha>` PR, each with a one-line justification citing the diff
+hunk that motivated it — if it can't be justified from the diff, it's dropped.
+That inline justification is the bar that keeps memory honest, and everything that
+survives lands on a reviewable, revertible PR. You stay the final gate.
+
+Inside the Expert, the files are kept small and topic-focused, cross-linked with
+`[[wikilinks]]` so an agent reads the one-line index, opens only what's relevant,
+and follows links to the rest — progressive disclosure, so consulting memory
+never means loading all of it.
 
 ## What you have at the end of Layer 2
 

@@ -42,7 +42,7 @@ as you climb — but you can stop on any rung.
    over.
 2. **[Spec-Driven Development](./2-spec-driven-development.md)** *(Layer 1)* — how
    Context Specs applies context engineering to a single feature: experts, specs,
-   temporal slicing, signal, consensus validation. The foundation, usable on its
+   temporal slicing, reflection, consensus validation. The foundation, usable on its
    own.
 3. **[The agent harness](./3-the-agent-harness.md)** *(Layer 2)* — file a PRD,
    walk away, come back to a finished PR. The autonomous loop, and why you can

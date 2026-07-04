@@ -140,7 +140,7 @@ What you find turns into two durable outcomes — the **flywheel**:
   regression test over the harness's **own skills and context** (the analog of
   testing a prompt), distinct from the PRD runner, which tests the product.
 - **Context fixes** — when a piece of context misled an agent, fix the Expert
-  shard, the `AGENTS.md` pointer, or the skill.
+  reference file, the `AGENTS.md` pointer, or the skill.
 
 This is the moment the framing of the whole book becomes literal: every PR the
 harness builds is a graded trial of your project's context, and every eval you

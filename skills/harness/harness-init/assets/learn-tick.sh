@@ -54,10 +54,10 @@ signal_learn_review() {
   {
     echo "## /learn session — why memory changed"
     echo
-    echo "These memory edits (Expert shards, invariants, AGENTS.md pointers,"
+    echo "These memory edits (Expert reference files, invariants, AGENTS.md pointers,"
     echo "candidate lints) were written by a headless \`/learn\` over the merged"
     echo "diff. If a routing call here looks wrong — a fact in the wrong surface,"
-    echo "an overfit lint, an Expert shard that says too much — open the trace"
+    echo "an overfit lint, an Expert reference file that says too much — open the trace"
     echo "below to see exactly what \`/learn\` read and how it decided, before you"
     echo "accept or revise it."
     echo

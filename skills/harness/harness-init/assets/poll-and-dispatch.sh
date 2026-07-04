@@ -129,7 +129,7 @@ signal_stuck() {
     echo "## Diagnosis-first"
     echo
     echo "Your **first** job is not the code — it is to identify which piece of"
-    echo "context (\`AGENTS.md\`, an Expert shard, a spec, or the PRD) misled the"
+    echo "context (\`AGENTS.md\`, an Expert reference file, a spec, or the PRD) misled the"
     echo "agent or was missing. Correct it on this branch *before* the code fix;"
     echo "the merge carries both into main and \`/learn\` picks up the context fix."
     echo

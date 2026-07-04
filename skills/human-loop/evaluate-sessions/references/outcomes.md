@@ -26,14 +26,14 @@ Two reasons, both load-bearing:
 
 ## Where in the project a context fix is written
 
-You route the fix to a destination in SKILL.md's S9 (lint / AGENTS.md / Expert shard /
+You route the fix to a destination in SKILL.md's S9 (lint / AGENTS.md / Expert reference file /
 nowhere). To find the exact file, read the **project's own** artifacts — not any skill's
 internals:
 
-- **Expert shard** — open `.claude/skills/expert/references/` in the project and pick the shard
-  whose subject matches (architecture, verification, patterns, procedural, core-files,
-  invariants). If none fits and the fact is real, the project's memory updater can place it on
-  its post-merge pass; your job is to write a clear, correctly-scoped note in the closest shard.
+- **Expert reference file** — open `.claude/skills/expert/references/` in the project and pick the
+  file whose subject matches, by prefix (`how-to-*`, `concept-*`, `pattern-*`, `invariant-*`,
+  `example-*`). If none fits and the fact is real, the project's memory updater can place it on
+  its post-merge pass; your job is to write a clear, correctly-scoped note in the closest file.
 - **AGENTS.md** — the root `AGENTS.md`, or the nested one in the folder the rule is local to.
   Only if it clears the five-predicate bar (S9); otherwise prefer the Expert.
 - **A skill defect** — if a *skill's own text* steered the agent wrong, the fix is that skill's

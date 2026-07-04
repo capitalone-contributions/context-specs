@@ -111,7 +111,7 @@ first:
   become evals and/or context fixes.
 - **Inherent difficulty** — the task was just hard; no context change would have helped.
   Name it and move on. Calling difficulty a "defect" over-fits memory with noise — the
-  thing `/learn`'s consensus gate and this skill's S4 both guard against.
+  thing `/learn`'s reconcile justification bar and this skill's S4 both guard against.
 
 ## CI / remote degradation
 

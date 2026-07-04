@@ -13,9 +13,9 @@ harness ran to produce it — into two durable outcomes:
   behaved well or badly given the context it had, freeze that as a runnable check under
   `evals/`. This is the flywheel Chase/LangSmith describe — *observe a trace → capture it
   as an eval → fix the prompt → it persists as a regression test* — except the "prompt"
-  here is the project's **context** (Expert shards, AGENTS.md, a skill's own text).
+  here is the project's **context** (Expert reference files, AGENTS.md, a skill's own text).
 - **Context fixes.** When a session reveals that a piece of context **misled** an agent or
-  was **missing**, fix it — the Expert shard, the AGENTS.md pointer, or the skill — *with*
+  was **missing**, fix it — the Expert reference file, the AGENTS.md pointer, or the skill — *with*
   the human, on a branch.
 
 `/evaluate-pr` evaluates **what was built** (the change); `/evaluate-sessions` evaluates
@@ -86,7 +86,7 @@ not auditing a single PR, you're tuning the project's context so the *whole harn
     an agent would think to consult the Expert; non-inferable from the code; harmful if
     violated (breaks behavior/data, not style); stable; and local-or-truly-global. Eager memory
     is paid in tokens on every session, so the bar is high.
-  - **Lazy prose (an Expert shard)** — the default home for real knowledge: useful when an
+  - **Lazy prose (an Expert reference file)** — the default home for real knowledge: useful when an
     agent *deliberately reasons* about the area, paid only when consulted.
   - **Nowhere** — inferable from the code, taste-only, or transient.
 

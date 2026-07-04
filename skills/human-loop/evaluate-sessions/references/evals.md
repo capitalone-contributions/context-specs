@@ -48,7 +48,7 @@ If the project has no `evals/` dir yet, create it when you author the first eval
 # `evals/` — regression tests over this project's harness skills/context
 
 Authored by `/evaluate-sessions` when a build trail reveals a skill behaving well or badly
-because of this project's context (an Expert shard, an AGENTS.md pointer, a skill's text, a
+because of this project's context (an Expert reference file, an AGENTS.md pointer, a skill's text, a
 spec). Evals test the **harness** ("given this context, does the skill behave?"); `prds/<f>/
 run-prd-test.sh` tests the **product** ("does the feature work?"). Keep them separate.
 

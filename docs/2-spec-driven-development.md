@@ -168,7 +168,8 @@ knows whether it's on track as it goes, not after.
 A repeatable way to take one feature from idea to working code while keeping the
 agent's window full of exactly the right context and nothing else: knowledge
 defined once and pulled on demand, planning externalized and disclosed
-progressively, validation by consensus, implementation gated by signal. All of
+progressively, validation by consensus, implementation verified by unit tests
+and fed back through Reflect. All of
 it framework-agnostic, all of it usable on its own.
 
 ---
